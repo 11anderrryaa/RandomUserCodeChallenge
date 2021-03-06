@@ -22,6 +22,9 @@
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WjY-JF-nYP">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                                     <state key="normal" title="Pick Random User"/>
+                                    <connections>
+                                        <action selector="pickRandomUser:" destination="dyd-p6-0w2" eventType="touchUpInside" id="E2r-xo-Wfx"/>
+                                    </connections>
                                 </button>
                             </subviews>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -60,7 +63,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="m9q-bc-BbS">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="Kua-T4-N7l"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="Kua-T4-N7l">
+                            <connections>
+                                <action selector="addUser:" destination="dyd-p6-0w2" id="DE4-qT-chi"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UzU-II-pde" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

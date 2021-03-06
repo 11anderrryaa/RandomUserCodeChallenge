@@ -9,7 +9,7 @@ import UIKit
 
 class DeatailTableViewController: UITableViewController {
     
-   var users : [User] = []
+    var users : [User] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,6 +20,17 @@ class DeatailTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+    }
+    @IBAction func pickRandomUser(_ sender: Any) {
+        guard let randomUser = users.randomElement()
+        else {return}
+        
+        let alertController = UIAlertController(title: "\(randomUser.name)", message: "was picked as random user", preferredStyle: .alert)
+        let cancelButton = UIAlertAction(title: "Back", style: .cancel, handler: .none)
+        
+        alertController.addAction(cancelButton)
+        present(alertController, animated: true, completion: nil)
+        
     }
     
     func getUser(at indexPath: IndexPath) -> User {
@@ -35,8 +46,43 @@ class DeatailTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "UserCell", for: indexPath) as? UserTableViewCell
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "UserCell", for: indexPath) as? UserTableViewCell else {fatalError("No Cell 😬")}
+        let user = getUser(at: indexPath)
+        cell.configure(user: user)
+        
+        return cell
     }
+    
+    @IBAction func addUser(_ sender: Any) {
+        
+        let alertController = UIAlertController(title: "Enter User Name", message: nil, preferredStyle: .alert)
+        
+        alertController.addTextField { (textField) in
+            textField.placeholder = "Enter Name"
+            textField.textAlignment = .center
+        }
+        let cancelButton = UIAlertAction(title: "Cancel", style: .destructive, handler: .none)
+
+        
+        let submitAction = UIAlertAction(title: "Submit", style: .default) { (alert) in
+            guard let textFieldArray = alertController.textFields,             let nameText = textFieldArray[0].text
+            else {return}
+            let user = User(name: nameText)
+            self.users.append(user)
+            User.saveToFile(users: self.users)
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
+       
+        alertController.addAction(cancelButton)
+        alertController.addAction(submitAction)
+       
+        present(alertController, animated: true, completion: nil)
+        
+    }
+    
+   
 
     /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
