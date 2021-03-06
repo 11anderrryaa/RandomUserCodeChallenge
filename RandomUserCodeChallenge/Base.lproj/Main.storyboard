@@ -20,19 +20,20 @@
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WjY-JF-nYP">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                    <rect key="frame" x="1" y="1" width="412" height="42"/>
+                                    <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <state key="normal" title="Pick Random User"/>
                                     <connections>
                                         <action selector="pickRandomUser:" destination="dyd-p6-0w2" eventType="touchUpInside" id="E2r-xo-Wfx"/>
                                     </connections>
                                 </button>
                             </subviews>
-                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <color key="backgroundColor" systemColor="systemBlueColor"/>
                             <constraints>
-                                <constraint firstItem="WjY-JF-nYP" firstAttribute="top" secondItem="VXC-VQ-cUL" secondAttribute="top" id="az5-bZ-to1"/>
-                                <constraint firstItem="WjY-JF-nYP" firstAttribute="leading" secondItem="VXC-VQ-cUL" secondAttribute="leading" id="jzO-bw-4sR"/>
-                                <constraint firstAttribute="bottom" secondItem="WjY-JF-nYP" secondAttribute="bottom" id="ugj-Re-0Tu"/>
-                                <constraint firstAttribute="trailing" secondItem="WjY-JF-nYP" secondAttribute="trailing" id="veL-RH-pxS"/>
+                                <constraint firstItem="WjY-JF-nYP" firstAttribute="top" secondItem="VXC-VQ-cUL" secondAttribute="top" constant="1" id="az5-bZ-to1"/>
+                                <constraint firstItem="WjY-JF-nYP" firstAttribute="leading" secondItem="VXC-VQ-cUL" secondAttribute="leading" constant="1" id="jzO-bw-4sR"/>
+                                <constraint firstAttribute="bottom" secondItem="WjY-JF-nYP" secondAttribute="bottom" constant="1" id="ugj-Re-0Tu"/>
+                                <constraint firstAttribute="trailing" secondItem="WjY-JF-nYP" secondAttribute="trailing" constant="1" id="veL-RH-pxS"/>
                             </constraints>
                         </view>
                         <prototypes>
@@ -96,6 +97,9 @@
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBlueColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
