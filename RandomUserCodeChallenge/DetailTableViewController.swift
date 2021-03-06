@@ -13,7 +13,7 @@ class DeatailTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
- 
+        
         users = User.loadFromFile()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -25,7 +25,7 @@ class DeatailTableViewController: UITableViewController {
         guard let randomUser = users.randomElement()
         else {return}
         
-        let alertController = UIAlertController(title: "\(randomUser.name)", message: "was picked as random user", preferredStyle: .alert)
+        let alertController = UIAlertController(title: "\(randomUser.name)", message: "Congratulations! You were randomly picked as our winner!!", preferredStyle: .alert)
         let cancelButton = UIAlertAction(title: "Back", style: .cancel, handler: .none)
         
         alertController.addAction(cancelButton)
@@ -34,7 +34,13 @@ class DeatailTableViewController: UITableViewController {
     }
     
     func getUser(at indexPath: IndexPath) -> User {
-        users[indexPath.row]
+        
+        let sortedUsers = users.sorted(by: { $0.name < $1.name
+        })
+        
+        User.saveToFile(users: sortedUsers)
+        
+       return sortedUsers[indexPath.row]
     }
 
     // MARK: - Table view data source
@@ -47,11 +53,17 @@ class DeatailTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "UserCell", for: indexPath) as? UserTableViewCell else {fatalError("No Cell 😬")}
+        
+       
+        
         let user = getUser(at: indexPath)
+        
         cell.configure(user: user)
+        
         
         return cell
     }
+    
     
     @IBAction func addUser(_ sender: Any) {
         
@@ -67,7 +79,7 @@ class DeatailTableViewController: UITableViewController {
         let submitAction = UIAlertAction(title: "Submit", style: .default) { (alert) in
             guard let textFieldArray = alertController.textFields,             let nameText = textFieldArray[0].text
             else {return}
-            let user = User(name: nameText)
+            let user = User(name: nameText.uppercased())
             self.users.append(user)
             User.saveToFile(users: self.users)
             DispatchQueue.main.async {
