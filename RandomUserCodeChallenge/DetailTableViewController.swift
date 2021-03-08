@@ -12,7 +12,6 @@ class DeatailTableViewController: UITableViewController, UIPickerViewDelegate, U
     
     
     var users : [User] = []
-
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -29,15 +28,32 @@ class DeatailTableViewController: UITableViewController, UIPickerViewDelegate, U
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
-           return 1
+           return 2
         }
         
         func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-            return users.count
+            if component == 0 {
+                return 1
+            }  else {
+                return users.count
+            }
         }
+    
+   
         func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+            if component == 0 {
+                return "How Many Users?"
+            } else {
+            
             return String(row + 1)
+            }
         }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        if component == 1 {
+            pickerView.reloadAllComponents()
+        }
+    }
     
     
         @IBOutlet weak var amountOfUsers: UIPickerView!
@@ -45,30 +61,44 @@ class DeatailTableViewController: UITableViewController, UIPickerViewDelegate, U
 
     @IBAction func pickRandomUser(_ sender: UIButton) {
         
-        if users.count == 1 {
-            let alertController = UIAlertController(title: "Add More Users", message: nil, preferredStyle: .alert)
+        var randerusers : [User] = users
+
+        let num = amountOfUsers.selectedRow(inComponent: 1)
+        
+        var selectedUsers : [String] = []
+        if users.count == 0 {
+            let alertController = UIAlertController(title: "Add Users", message: nil, preferredStyle: .alert)
             let cancelButton = UIAlertAction(title: "Back", style: .cancel, handler: .none)
             
             alertController.addAction(cancelButton)
             present(alertController, animated: true, completion: nil)
+            
+        }else if users.count == 1 {
+            let alertController = UIAlertController(title: "\(selectedUsers)", message: "There is only one User to choose from. Consider adding more users", preferredStyle: .alert)
+            let cancelButton = UIAlertAction(title: "Back", style: .cancel, handler: .none)
+            
+            alertController.addAction(cancelButton)
+            present(alertController, animated: true, completion: nil)
+        } else {
+        
+        
+        for _ in 0...num {
+            let randomUser = randerusers.randomElement()
+            if let user = randomUser?.name {
+                selectedUsers.append(user)
+                randerusers.removeAll {$0.name.hasPrefix(user)}
+//                print(randerusers)
+            }
+
         }
+//        print(selectedUsers)
         
-        guard let randomUser = users.randomElement(), let num = amountOfUsers?.numberOfRows(inComponent: 0)
-        else {return}
-        
-//        var selectedUsers : [User] = []
-//        
-//        for _ in 0...num {
-//            
-//            return selectedUsers.append(randomUser)
-//        }
-        
-        let alertController = UIAlertController(title: "\(randomUser.name)", message: "Congratulations! You were randomly picked as our winner!!", preferredStyle: .alert)
+            let alertController = UIAlertController(title: "\(selectedUsers)", message: "Congratulations! You were randomly picked as our winner!!", preferredStyle: .alert)
         let cancelButton = UIAlertAction(title: "Back", style: .cancel, handler: .none)
         
         alertController.addAction(cancelButton)
         present(alertController, animated: true, completion: nil)
-        
+        }
     }
     
     func getUser(at indexPath: IndexPath) -> User {
@@ -91,8 +121,7 @@ class DeatailTableViewController: UITableViewController, UIPickerViewDelegate, U
     
         override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "UserCell", for: indexPath) as? UserTableViewCell else {fatalError("No Cell 😬")}
-        
-       
+            
         
         let user = getUser(at: indexPath)
         
@@ -139,7 +168,6 @@ class DeatailTableViewController: UITableViewController, UIPickerViewDelegate, U
         }
         
         User.saveToFile(users: users)
-    
     }
     
 }
