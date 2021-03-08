@@ -16,36 +16,45 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="VXC-VQ-cUL">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="160"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WjY-JF-nYP">
-                                    <rect key="frame" x="1" y="1" width="412" height="42"/>
-                                    <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <rect key="frame" x="1" y="1" width="412" height="40"/>
+                                    <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="40" id="FSX-7K-C8b"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="15"/>
                                     <state key="normal" title="Pick Random User"/>
                                     <connections>
                                         <action selector="pickRandomUser:" destination="dyd-p6-0w2" eventType="touchUpInside" id="E2r-xo-Wfx"/>
                                     </connections>
                                 </button>
+                                <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gcO-Sc-mUb">
+                                    <rect key="frame" x="0.0" y="41" width="414" height="118"/>
+                                </pickerView>
                             </subviews>
-                            <color key="backgroundColor" systemColor="systemBlueColor"/>
                             <constraints>
+                                <constraint firstItem="gcO-Sc-mUb" firstAttribute="top" secondItem="WjY-JF-nYP" secondAttribute="bottom" id="4vh-39-5Kx"/>
+                                <constraint firstItem="gcO-Sc-mUb" firstAttribute="leading" secondItem="VXC-VQ-cUL" secondAttribute="leading" id="NAH-p3-d0Y"/>
                                 <constraint firstItem="WjY-JF-nYP" firstAttribute="top" secondItem="VXC-VQ-cUL" secondAttribute="top" constant="1" id="az5-bZ-to1"/>
+                                <constraint firstAttribute="trailing" secondItem="gcO-Sc-mUb" secondAttribute="trailing" id="h2Z-IC-AaM"/>
                                 <constraint firstItem="WjY-JF-nYP" firstAttribute="leading" secondItem="VXC-VQ-cUL" secondAttribute="leading" constant="1" id="jzO-bw-4sR"/>
-                                <constraint firstAttribute="bottom" secondItem="WjY-JF-nYP" secondAttribute="bottom" constant="1" id="ugj-Re-0Tu"/>
+                                <constraint firstAttribute="bottom" secondItem="gcO-Sc-mUb" secondAttribute="bottom" constant="1" id="ofJ-Of-ukJ"/>
                                 <constraint firstAttribute="trailing" secondItem="WjY-JF-nYP" secondAttribute="trailing" constant="1" id="veL-RH-pxS"/>
                             </constraints>
                         </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="UserCell" textLabel="MBG-Qd-q1D" style="IBUITableViewCellStyleDefault" id="2KJ-9E-xvS" customClass="UserTableViewCell" customModule="RandomUserCodeChallenge" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="72" width="414" height="78.5"/>
+                                <rect key="frame" x="0.0" y="188" width="414" height="62.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="2KJ-9E-xvS" id="rBR-cs-7o9">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="78.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="62.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="MBG-Qd-q1D">
-                                            <rect key="frame" x="20" y="0.0" width="374" height="78.5"/>
+                                            <rect key="frame" x="20" y="0.0" width="374" height="62.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="26"/>
                                             <nil key="textColor"/>
@@ -63,13 +72,17 @@
                             <outlet property="delegate" destination="dyd-p6-0w2" id="98D-9P-EcW"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="m9q-bc-BbS">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="Kua-T4-N7l">
+                    <navigationItem key="navigationItem" id="fgM-Nk-NGd">
+                        <nil key="title"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="6M8-zs-MEw">
                             <connections>
-                                <action selector="addUser:" destination="dyd-p6-0w2" id="DE4-qT-chi"/>
+                                <action selector="addUser:" destination="dyd-p6-0w2" id="zR0-SY-40B"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="amountOfUsers" destination="gcO-Sc-mUb" id="bUz-DC-cGK"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UzU-II-pde" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -97,9 +110,6 @@
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemBlueColor">
-            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

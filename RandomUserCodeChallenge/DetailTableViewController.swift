@@ -7,7 +7,9 @@
 
 import UIKit
 
-class DeatailTableViewController: UITableViewController {
+class DeatailTableViewController: UITableViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+    
+    
     
     var users : [User] = []
 
@@ -15,15 +17,51 @@ class DeatailTableViewController: UITableViewController {
         super.viewDidLoad()
         
         users = User.loadFromFile()
+        
+        amountOfUsers.dataSource = self
+        amountOfUsers.delegate = self
+        
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
-    @IBAction func pickRandomUser(_ sender: Any) {
-        guard let randomUser = users.randomElement()
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+           return 1
+        }
+        
+        func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+            return users.count
+        }
+        func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+            return String(row + 1)
+        }
+    
+    
+        @IBOutlet weak var amountOfUsers: UIPickerView!
+        
+
+    @IBAction func pickRandomUser(_ sender: UIButton) {
+        
+        if users.count == 1 {
+            let alertController = UIAlertController(title: "Add More Users", message: nil, preferredStyle: .alert)
+            let cancelButton = UIAlertAction(title: "Back", style: .cancel, handler: .none)
+            
+            alertController.addAction(cancelButton)
+            present(alertController, animated: true, completion: nil)
+        }
+        
+        guard let randomUser = users.randomElement(), let num = amountOfUsers?.numberOfRows(inComponent: 0)
         else {return}
+        
+//        var selectedUsers : [User] = []
+//        
+//        for _ in 0...num {
+//            
+//            return selectedUsers.append(randomUser)
+//        }
         
         let alertController = UIAlertController(title: "\(randomUser.name)", message: "Congratulations! You were randomly picked as our winner!!", preferredStyle: .alert)
         let cancelButton = UIAlertAction(title: "Back", style: .cancel, handler: .none)
@@ -46,12 +84,12 @@ class DeatailTableViewController: UITableViewController {
     // MARK: - Table view data source
 
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return users.count
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "UserCell", for: indexPath) as? UserTableViewCell else {fatalError("No Cell 😬")}
         
        
