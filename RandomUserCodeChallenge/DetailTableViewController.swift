@@ -60,12 +60,13 @@ class DeatailTableViewController: UITableViewController, UIPickerViewDelegate, U
         
 
     @IBAction func pickRandomUser(_ sender: UIButton) {
-        
+        amountOfUsers.reloadAllComponents()
         var randerusers : [User] = users
 
         let num = amountOfUsers.selectedRow(inComponent: 1)
         
         var selectedUsers : [String] = []
+        
         if users.count == 0 {
             let alertController = UIAlertController(title: "Add Users", message: nil, preferredStyle: .alert)
             let cancelButton = UIAlertAction(title: "Back", style: .cancel, handler: .none)
@@ -151,6 +152,7 @@ class DeatailTableViewController: UITableViewController, UIPickerViewDelegate, U
             User.saveToFile(users: self.users)
             DispatchQueue.main.async {
                 self.tableView.reloadData()
+                self.amountOfUsers.reloadAllComponents()
             }
         }
         
@@ -158,13 +160,15 @@ class DeatailTableViewController: UITableViewController, UIPickerViewDelegate, U
         alertController.addAction(submitAction)
        
         present(alertController, animated: true, completion: nil)
-        
+//        amountOfUsers.reloadAllComponents()
+        amountOfUsers.reloadInputViews()
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             users.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .automatic)
+            self.amountOfUsers.reloadAllComponents()
         }
         
         User.saveToFile(users: users)

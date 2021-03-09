@@ -11,7 +11,7 @@
         <scene sceneID="wnG-3z-Uc5">
             <objects>
                 <tableViewController id="dyd-p6-0w2" customClass="DeatailTableViewController" customModule="RandomUserCodeChallenge" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="interactive" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="r8o-qk-iIv">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="r8o-qk-iIv">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -93,6 +93,7 @@
         <!--Navigation Controller-->
         <scene sceneID="mYg-US-rAJ">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YMQ-p1-eRl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="6Hn-zh-KBd" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="GvM-mv-fnT">
@@ -104,7 +105,6 @@
                         <segue destination="dyd-p6-0w2" kind="relationship" relationship="rootViewController" id="pSO-oV-SA8"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="YMQ-p1-eRl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="62.318840579710148" y="87.723214285714278"/>
         </scene>
